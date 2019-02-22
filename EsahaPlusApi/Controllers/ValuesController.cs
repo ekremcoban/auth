@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EsahaEdApi.Controllers
+namespace EsahaPlusApi.Controllers
 {
-    [Route("api/[controller]")]
+    [AllowAnonymous]
+    [Route("esaha/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
