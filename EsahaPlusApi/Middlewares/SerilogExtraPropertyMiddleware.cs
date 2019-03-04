@@ -19,9 +19,11 @@ namespace EsahaPlusApi.Middlewares
 
         public Task Invoke(HttpContext context)
         {
-            LogContext.PushProperty("UserId", context.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            LogContext.PushProperty("Username", context.User.FindFirst(ClaimTypes.Name).Value);
-
+            if (context.User.Identity.IsAuthenticated)
+            {
+                LogContext.PushProperty("UserId", context.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+                LogContext.PushProperty("Username", context.User.FindFirst(ClaimTypes.Name).Value);
+            }
             return next(context);
         }
     }
