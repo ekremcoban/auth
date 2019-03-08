@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -25,12 +26,14 @@ namespace EsahaPlusApi
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        private IHostingEnvironment _Environment { get; } 
+        private IHostingEnvironment _Environment { get; }
+        private ILogger<Startup> _Logger { get; }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
             Configuration = configuration;
             _Environment = environment;
+            _Logger = logger;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -125,11 +128,18 @@ namespace EsahaPlusApi
                             context.Response.WriteAsync(jsonService.SerializeObject(new ErrorDto() { Message = context.AuthenticateFailure.Message })).Wait();
                         else
                         {
-                            /// TODO: Save log
                             if (context.Response.Headers.ContainsKey("Token-Expired"))
-                                context.Response.WriteAsync(jsonService.SerializeObject(new ErrorDto() { Message = "Bağlantı süreniz doldu!" })).Wait();
+                            {
+                                string error = jsonService.SerializeObject(new ErrorDto() { Message = "Bağlantı süreniz doldu!" });
+                                _Logger.LogError(error);
+                                context.Response.WriteAsync(error).Wait();
+                            }
                             else
-                                context.Response.WriteAsync(jsonService.SerializeObject(new ErrorDto() { Message = "Bağlantı anahtarınız bulunmuyor!" })).Wait();
+                            {
+                                string error = jsonService.SerializeObject(new ErrorDto() { Message = "Bağlantı anahtarınız bulunmuyor!" });
+                                _Logger.LogError(error);
+                                context.Response.WriteAsync(error).Wait();
+                            }
                         }
 
                         return Task.CompletedTask;
