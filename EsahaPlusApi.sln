@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EsahaPlusApi", "EsahaPlusApi\EsahaPlusApi.csproj", "{1082AA28-6B19-405B-A444-7A2451B30D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{03E18D27-0DE7-4127-8FC1-28AB3EFE08E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{03E18D27-0DE7-4127-8FC1-28AB3EFE08E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeLib", "TimeLib\TimeLib.csproj", "{40828EFF-2E2F-4CC3-83AE-95C4CB0F2AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeLib", "TimeLib\TimeLib.csproj", "{40828EFF-2E2F-4CC3-83AE-95C4CB0F2AE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
